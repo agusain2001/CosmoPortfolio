@@ -47,7 +47,7 @@ export function useGemini() {
 
         try {
             const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-05-20' });
+            const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
             const chat = model.startChat({
                 history: messages.slice(0, -1).map(msg => ({
