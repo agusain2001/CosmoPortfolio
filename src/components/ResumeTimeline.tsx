@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { HiDownload, HiDocumentText } from 'react-icons/hi';
 
 const RESUME_URL = 'https://drive.google.com/file/d/1hg-mI58L85e6ibo5GOl6Gwg4sMdSqOG_/view?usp=sharing';

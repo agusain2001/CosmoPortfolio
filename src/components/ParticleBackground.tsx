@@ -34,7 +34,6 @@ export default function ParticleBackground() {
         let animationId: number;
         const stars: Star[] = [];
         const shootingStars: ShootingStar[] = [];
-        const starCount = window.innerWidth < 768 ? 80 : 200; // Fewer stars on mobile
         const mouseRadius = 150;
 
         // Theme detection

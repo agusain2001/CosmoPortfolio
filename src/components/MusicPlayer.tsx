@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useRef, useEffect } from 'react';
-import { HiMusicNote, HiPause, HiPlay, HiVolumeUp, HiVolumeOff, HiX, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import { useState } from 'react';
+import { HiMusicNote, HiPause, HiPlay, HiX, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { FaSpotify } from 'react-icons/fa';
 
 interface Track {
