@@ -2,7 +2,8 @@ import { useTheme } from './context/ThemeContext';
 import ParticleBackground from './components/ParticleBackground';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollEffects from './components/ScrollEffects';
-import CursorTrail from './components/CursorTrail';
+import CustomCursor from './components/CustomCursor';
+import Navbar from './components/Navbar';
 import ThemeToggle from './components/ThemeToggle';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -35,8 +36,11 @@ export default function App() {
             {/* Parallax scroll effects - hidden on mobile via CSS */}
             <ScrollEffects />
 
-            {/* Custom cursor trail - only on non-touch devices */}
-            {!isTouchDevice && <CursorTrail />}
+            {/* Custom cursor with hover states - only on non-touch devices */}
+            {!isTouchDevice && <CustomCursor />}
+
+            {/* Modern sticky navigation bar */}
+            <Navbar />
 
             {/* Theme toggle button */}
             <ThemeToggle />
