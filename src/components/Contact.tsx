@@ -137,33 +137,47 @@ export default function Contact() {
                                     placeholder="Your Message to the Cosmos"
                                 />
 
-                                <motion.button
-                                    type="submit"
-                                    disabled={status.type === 'loading'}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="w-full py-3 sm:py-4 bg-gradient-to-r from-nebula-purple to-cosmic-blue rounded-lg sm:rounded-xl font-semibold text-white flex items-center justify-center gap-2 nebula-glow transition-all duration-300 disabled:opacity-50 text-sm sm:text-base"
-                                >
-                                    {status.type === 'loading' ? (
-                                        <>
-                                            <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                            Transmitting...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <HiPaperAirplane className="w-4 h-4 sm:w-5 sm:h-5 rotate-45" />
-                                            Launch Transmission
-                                        </>
-                                    )}
-                                </motion.button>
+                                {/* Action Buttons */}
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <motion.button
+                                        type="submit"
+                                        disabled={status.type === 'loading'}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="flex-1 py-3 sm:py-4 bg-gradient-to-r from-nebula-purple to-cosmic-blue rounded-lg sm:rounded-xl font-semibold text-white flex items-center justify-center gap-2 nebula-glow transition-all duration-300 disabled:opacity-50 text-sm sm:text-base"
+                                    >
+                                        {status.type === 'loading' ? (
+                                            <>
+                                                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                Transmitting...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <HiPaperAirplane className="w-4 h-4 sm:w-5 sm:h-5 rotate-45" />
+                                                Launch Transmission
+                                            </>
+                                        )}
+                                    </motion.button>
+
+                                    <motion.a
+                                        href="https://calendly.com/2001-ashish-official"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="flex-1 py-3 sm:py-4 cosmic-card border border-nebula-purple/40 rounded-lg sm:rounded-xl font-semibold text-[var(--text-primary)] flex items-center justify-center gap-2 hover:bg-nebula-purple/10 transition-all duration-300 text-sm sm:text-base"
+                                    >
+                                        ☕ Book a 15-min Chat
+                                    </motion.a>
+                                </div>
 
                                 {status.type !== 'idle' && status.type !== 'loading' && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         className={`text-center py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-sm ${status.type === 'success'
-                                                ? 'bg-cosmic-blue/20 text-cosmic-light border border-cosmic-blue/30'
-                                                : 'bg-solar-orange/20 text-solar-light border border-solar-orange/30'
+                                            ? 'bg-cosmic-blue/20 text-cosmic-light border border-cosmic-blue/30'
+                                            : 'bg-solar-orange/20 text-solar-light border border-solar-orange/30'
                                             }`}
                                     >
                                         {status.message}

@@ -11,6 +11,7 @@ import ResumeTimeline from './components/ResumeTimeline';
 import SkillsRadar from './components/SkillsRadar';
 import TechStack from './components/TechStack';
 import Projects from './components/Projects';
+import Blog from './components/Blog';
 import Testimonials from './components/Testimonials';
 import GitHubStats from './components/GitHubStats';
 import GitHubActivityFeed from './components/GitHubActivityFeed';
@@ -20,6 +21,7 @@ import Chatbot from './components/Chatbot';
 import CommandPalette from './components/CommandPalette';
 import MusicPlayer from './components/MusicPlayer';
 import EasterEggs from './components/EasterEggs';
+import SEO from './components/SEO';
 
 export default function App() {
     useTheme(); // Initialize theme context
@@ -30,6 +32,9 @@ export default function App() {
 
     return (
         <div className={`relative min-h-screen ${!isTouchDevice ? 'cursor-none' : ''}`}>
+            {/* SEO Meta Tags */}
+            <SEO />
+
             {/* Background effects - reduced in light mode via CSS */}
             <ParticleBackground />
 
@@ -65,6 +70,7 @@ export default function App() {
                 <SkillsRadar />
                 <TechStack />
                 <Projects />
+                <Blog />
                 <Testimonials />
                 <GitHubStats />
                 <GitHubActivityFeed />

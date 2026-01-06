@@ -11,9 +11,9 @@ interface NavItem {
 const navItems: NavItem[] = [
     { label: 'Home', href: '#hero', id: 'hero' },
     { label: 'About', href: '#about', id: 'about' },
-    { label: 'Resume', href: '#resume', id: 'resume' },
     { label: 'Skills', href: '#skills-radar', id: 'skills-radar' },
     { label: 'Projects', href: '#projects', id: 'projects' },
+    { label: 'Blog', href: '#blog', id: 'blog' },
     { label: 'Contact', href: '#contact', id: 'contact' },
 ];
 
@@ -131,9 +131,6 @@ export default function Navbar() {
                         >
                             <span className="text-xl md:text-2xl font-bold text-gradient">
                                 AG
-                            </span>
-                            <span className="hidden sm:inline text-sm md:text-base font-medium text-[var(--text-secondary)]">
-                                Ashish Gusain
                             </span>
                         </motion.a>
 

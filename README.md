@@ -8,7 +8,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-agusain2001-181717?style=for-the-badge&logo=github)](https://github.com/agusain2001)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/ashish-gusain-aa279a280/)
 
-*A stunning, interactive portfolio website with a Cosmic/Space Explorer theme*
+*A stunning, interactive portfolio website showcasing AI Engineering & Backend Development expertise*
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)
@@ -26,23 +26,33 @@
 - **Cosmic/Space Explorer Theme** - Deep space backgrounds with twinkling stars and nebula effects
 - **Dark/Light Mode Toggle** - Seamlessly switch between cosmic dark and celestial light themes
 - **Interactive Particle Background** - Stars react to mouse movement, forming constellations
-- **Custom Cursor Trail** - Nebula-colored particles follow your cursor
+- **Custom Cursor with Hover Effects** - Ring + dot cursor that scales and changes color on interactive elements
 - **Parallax Scroll Effects** - Floating orbs and geometric shapes with depth
+- **Smooth Scroll Animations** - Elements animate in as you scroll
 
 ### 🛠️ Technical Highlights
 - **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
 - **TypeScript** - Type-safe codebase for better maintainability
 - **Framer Motion Animations** - Smooth, physics-based animations throughout
-- **SEO Optimized** - Meta tags, semantic HTML, and proper heading structure
+- **SEO Optimized** - Open Graph & Twitter Cards for social sharing
 - **Performance Focused** - Lazy loading, optimized assets, and efficient rendering
+- **Sticky Navbar** - Transparent on hero, solid glass effect on scroll
 
 ### 🤖 AI Integration
 - **Gemini AI Chatbot** - Interactive AI assistant powered by Google's Gemini API
-- **Context-Aware Responses** - Chatbot knows about Ashish's skills, projects, and experience
+- **RAG-Lite Context** - Chatbot trained on resume/skills for accurate responses
+- **Context-Aware Responses** - Answers based only on professional background
 
-### 📊 Live Data
+### 📊 Live Data & Integrations
 - **GitHub Stats Integration** - Real-time repository and contribution data
+- **Medium Blog Feed** - Dynamic RSS feed from Medium articles
+- **Calendly Integration** - Book meetings directly from contact section
 - **Animated Counters** - Dynamic statistics with scroll-triggered animations
+
+### 🏗️ Project Showcase
+- **System Architecture Visualization** - Modal with detailed system design breakdowns
+- **Metric-Driven Descriptions** - Real engineering metrics (95% accuracy, <200ms latency)
+- **3D Tilt Cards** - Interactive project cards with hover effects
 
 ---
 
@@ -50,13 +60,16 @@
 
 | Section | Description |
 |---------|-------------|
-| **🌟 Hero** | Animated introduction with typewriter effect and floating planets |
+| **🌟 Hero** | Animated introduction with typewriter effect and CTA buttons |
 | **👨‍🚀 Mission Profile** | About section with bio, highlights, and animated stats |
-| **🛸 Tech Universe** | Skills organized as cosmic categories (AI/ML Nebula, LLM Galaxy, etc.) |
-| **🚀 Space Missions** | Project showcase with 3D tilt cards and gradient effects |
-| **📊 Mission Control** | GitHub statistics with theme-aware contribution graphs |
-| **📡 Establish Contact** | Contact form and social links with cosmic styling |
-| **🛸 AI Co-Pilot** | Floating chatbot for interactive Q&A |
+| **📋 Resume Timeline** | Work experience with animated timeline |
+| **🛸 Skills Radar** | Interactive skills visualization |
+| **⚡ Tech Stack** | Technologies organized as cosmic categories |
+| **🚀 Projects** | Project showcase with architecture modals & metrics |
+| **📝 Technical Blog** | Latest Medium articles via RSS feed |
+| **📊 GitHub Stats** | Real-time contribution graphs |
+| **📡 Contact** | Contact form with Calendly booking |
+| **🛸 AI Chatbot** | Floating AI assistant for Q&A |
 
 ---
 
@@ -67,6 +80,7 @@
 - **TypeScript** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first CSS framework
 - **Framer Motion** - Animation library
+- **react-helmet-async** - SEO meta tag management
 
 ### Build Tools
 - **Vite** - Next-generation frontend tooling
@@ -76,7 +90,8 @@
 ### APIs & Services
 - **Google Gemini AI** - Chatbot responses
 - **GitHub API** - Live statistics
-- **GitHub Readme Stats** - Contribution visualizations
+- **RSS2JSON API** - Medium blog feed
+- **Calendly** - Meeting scheduling
 
 ---
 
@@ -121,31 +136,36 @@ VITE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
 PortFolio/
 ├── public/
-│   └── favicon.svg          # Site favicon
+│   ├── favicon.svg          # Site favicon
+│   ├── og-image.png         # Social sharing preview image
+│   └── resume.pdf           # Downloadable resume
 ├── src/
 │   ├── components/
 │   │   ├── About.tsx         # Mission Profile section
+│   │   ├── Blog.tsx          # Medium RSS feed
 │   │   ├── Chatbot.tsx       # AI Co-Pilot chatbot
-│   │   ├── Contact.tsx       # Contact form & info
-│   │   ├── CursorTrail.tsx   # Custom cursor effects
+│   │   ├── Contact.tsx       # Contact form & Calendly
+│   │   ├── CustomCursor.tsx  # Cursor with hover effects
 │   │   ├── Footer.tsx        # Site footer
 │   │   ├── GitHubStats.tsx   # GitHub statistics
 │   │   ├── Hero.tsx          # Hero section
+│   │   ├── Navbar.tsx        # Sticky navigation bar
 │   │   ├── ParticleBackground.tsx  # Star field canvas
-│   │   ├── Projects.tsx      # Project showcase
+│   │   ├── Projects.tsx      # Project showcase + Architecture modal
 │   │   ├── ScrollEffects.tsx # Parallax effects
-│   │   ├── ScrollProgress.tsx # Reading progress bar
-│   │   ├── TechStack.tsx     # Skills/technologies
+│   │   ├── SEO.tsx           # Open Graph meta tags
+│   │   ├── SkillsRadar.tsx   # Skills visualization
+│   │   ├── TechStack.tsx     # Technologies grid
 │   │   └── ThemeToggle.tsx   # Dark/Light switch
 │   ├── context/
 │   │   └── ThemeContext.tsx  # Theme state management
 │   ├── hooks/
-│   │   ├── useGemini.ts      # Gemini AI integration
+│   │   ├── useGemini.ts      # Gemini AI with RAG context
 │   │   ├── useScrollAnimation.ts  # Scroll animations
 │   │   └── useTypewriter.ts  # Typewriter effect
 │   ├── App.tsx               # Main application
 │   ├── index.css             # Global styles & themes
-│   └── main.tsx              # Entry point
+│   └── main.tsx              # Entry point with HelmetProvider
 ├── index.html                # HTML template
 ├── tailwind.config.js        # Tailwind configuration
 ├── vite.config.ts            # Vite configuration
@@ -181,7 +201,7 @@ PortFolio/
 
 | Breakpoint | Width | Optimizations |
 |------------|-------|---------------|
-| Mobile | < 640px | Stacked layouts, hidden cursor effects |
+| Mobile | < 640px | Stacked layouts, no cursor effects |
 | Tablet | < 768px | 2-column grids, adjusted spacing |
 | Desktop | < 1024px | Full experience with all effects |
 | Large | > 1280px | Maximum content width |
@@ -240,6 +260,7 @@ This project is open source and available under the [MIT License](LICENSE).
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-ashish--gusain-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ashish-gusain-aa279a280/)
 [![GitHub](https://img.shields.io/badge/GitHub-agusain2001-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/agusain2001)
 [![Twitter](https://img.shields.io/badge/Twitter-@2001agusain-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/2001agusain)
+[![Calendly](https://img.shields.io/badge/Calendly-Book_a_Chat-006BFF?style=for-the-badge&logo=calendly&logoColor=white)](https://calendly.com/2001-ashish-official)
 
 </div>
 
@@ -249,6 +270,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Made with ❤️ and ☕ by Ashish Gusain**
 
-*Crafted among the stars 🌌*
+*AI Engineer & Backend Developer | Crafted among the stars 🌌*
 
 </div>

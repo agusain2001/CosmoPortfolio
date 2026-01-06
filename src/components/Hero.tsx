@@ -108,10 +108,12 @@ export default function Hero() {
                         Explore Projects 🚀
                     </a>
                     <a
-                        href="#contact"
+                        href="/resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="px-6 py-3 sm:px-8 sm:py-3.5 cosmic-card rounded-full font-semibold text-[var(--text-primary)] hover:opacity-80 transition-all duration-300 text-sm sm:text-base"
                     >
-                        Make Contact 📡
+                        Download Resume 📄
                     </a>
                 </motion.div>
 
