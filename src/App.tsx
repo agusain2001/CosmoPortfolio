@@ -4,7 +4,7 @@ import ScrollProgress from './components/ScrollProgress';
 import ScrollEffects from './components/ScrollEffects';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
-import ThemeToggle from './components/ThemeToggle';
+
 import Hero from './components/Hero';
 import About from './components/About';
 import ResumeTimeline from './components/ResumeTimeline';
@@ -46,9 +46,6 @@ export default function App() {
 
             {/* Modern sticky navigation bar */}
             <Navbar />
-
-            {/* Theme toggle button */}
-            <ThemeToggle />
 
             {/* Scroll progress */}
             <ScrollProgress />
