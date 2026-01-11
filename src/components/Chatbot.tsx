@@ -76,7 +76,7 @@ export default function Chatbot() {
             {/* Chat toggle button */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed bottom-4 right-10 sm:bottom-6 sm:right-6 z-50 p-3 sm:p-4 bg-gradient-to-r from-nebula-purple to-cosmic-blue rounded-full text-white shadow-lg nebula-glow"
+                className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 p-3 sm:p-4 bg-gradient-to-r from-nebula-purple to-cosmic-blue rounded-full text-white shadow-lg nebula-glow"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label={isOpen ? 'Close chat' : 'Open chat'}
