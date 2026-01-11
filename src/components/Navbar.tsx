@@ -129,7 +129,7 @@ export default function Navbar() {
                             whileHover={{ scale: prefersReducedMotion ? 1 : 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <span className="text-xl md:text-2xl font-bold text-gradient">
+                            <span className="text-3xl md:text-5xl font-bold text-gradient">
                                 AG
                             </span>
                         </motion.a>
@@ -172,7 +172,7 @@ export default function Navbar() {
                         {/* Mobile Menu Button */}
                         <motion.button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="relative z-50 md:hidden p-2 rounded-lg text-[var(--text-primary)] hover:bg-[var(--bg-card)]"
+                            className="relative z-50 md:hidden p-2 rounded-lg text-[var(--text-primary)] hover:bg-[var(--bg-card)] mr-5"
                             whileHover={{ scale: prefersReducedMotion ? 1 : 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             aria-label="Toggle menu"
