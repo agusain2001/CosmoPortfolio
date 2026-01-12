@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useState, useCallback } from 'react';
+import { STATIC_VALUES } from '../utils/values';
 
 const SYSTEM_PROMPT = `You are Ashish's portfolio assistant. Answer questions based ONLY on the provided context below. If a question is outside this context, politely say you can only discuss Ashish's professional background.
 
@@ -36,9 +37,9 @@ EDUCATION:
 - BCA: Uttarakhand University (2018-2021)
 
 CONTACT:
-- Email: 2001.ashish.official@gmail.com
-- LinkedIn: linkedin.com/in/ashish-gusain-aa279a280
-- GitHub: github.com/agusain2001
+- Email: ${STATIC_VALUES.email}
+- LinkedIn: ${STATIC_VALUES.url.socialMedia.linkedin}
+- GitHub: ${STATIC_VALUES.url.socialMedia.github}
 
 === CONTEXT END ===
 

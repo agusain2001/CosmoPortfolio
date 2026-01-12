@@ -3,13 +3,14 @@ import { FaLinkedin, FaGithub, FaStackOverflow } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { HiMail, HiChevronDown } from 'react-icons/hi';
 import { useTypewriter } from '../hooks/useTypewriter';
+import { STATIC_VALUES } from '../utils/values';
 
 const socialLinks = [
-    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ashish-gusain-aa279a280/', label: 'LinkedIn' },
-    { icon: FaGithub, href: 'https://github.com/agusain2001', label: 'GitHub' },
-    { icon: HiMail, href: 'mailto:2001.ashish.official@gmail.com', label: 'Email' },
+    { icon: FaLinkedin, href: STATIC_VALUES.url.socialMedia.linkedin, label: 'LinkedIn' },
+    { icon: FaGithub, href: STATIC_VALUES.url.socialMedia.github, label: 'GitHub' },
+    { icon: HiMail, href: STATIC_VALUES.url.gmail, label: 'Email' },
     { icon: FaStackOverflow, href: 'https://stackoverflow.com', label: 'Stack Overflow' },
-    { icon: FaXTwitter, href: 'https://x.com/2001agusain', label: 'X/Twitter' },
+    { icon: FaXTwitter, href: STATIC_VALUES.url.socialMedia.x, label: 'X/Twitter' },
 ];
 
 const rotatingTexts = [
