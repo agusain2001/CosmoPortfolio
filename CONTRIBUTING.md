@@ -28,7 +28,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[Portfolio Code of Conduct](https://github.com/agusain2001/PortFolio/blob//CODE_OF_CONDUCT.md).
+[Portfolio Code of Conduct](https://github.com/agusain2001/PortFolio/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to <2001.ashish.official@gmail.com>.
 
