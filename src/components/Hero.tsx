@@ -103,7 +103,7 @@ export default function Hero() {
                     className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12"
                 >
                     <a
-                        href="#projects"
+                        href="/projects"
                         className="px-6 py-3 sm:px-8 sm:py-3.5 bg-gradient-to-r from-nebula-purple to-cosmic-blue rounded-full font-semibold text-white hover-lift nebula-glow transition-all duration-300 text-sm sm:text-base"
                     >
                         Explore Projects 🚀
