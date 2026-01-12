@@ -72,7 +72,7 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="py-16 sm:py-20 lg:py-24 relative">
+        <section id="contact" className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
             <div className="container mx-auto px-4">
                 {/* Section title */}
                 <motion.div

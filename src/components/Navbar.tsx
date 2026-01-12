@@ -129,7 +129,7 @@ export default function Navbar() {
                             whileHover={{ scale: prefersReducedMotion ? 1 : 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <span className="text-xl md:text-2xl font-bold text-gradient">
+                            <span className="text-3xl md:text-5xl font-bold text-gradient">
                                 AG
                             </span>
                         </motion.a>

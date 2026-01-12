@@ -84,6 +84,8 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Dark mode body gradient */
@@ -375,7 +377,7 @@ section {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0px 0px 0px 0px;
 }
 
 /* ============================================

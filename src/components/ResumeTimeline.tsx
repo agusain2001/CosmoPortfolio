@@ -61,7 +61,7 @@ export default function ResumeTimeline() {
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
     return (
-        <section id="resume" className="py-16 sm:py-20 lg:py-24 relative">
+        <section id="resume" className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
             <div className="container mx-auto px-4">
                 {/* Section title */}
                 <motion.div
