@@ -1,27 +1,28 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface NavItem {
     label: string;
     href: string;
-    id: string;
 }
 
 const navItems: NavItem[] = [
-    { label: 'Home', href: '#hero', id: 'hero' },
-    { label: 'About', href: '#about', id: 'about' },
-    { label: 'Skills', href: '#skills-radar', id: 'skills-radar' },
-    { label: 'Projects', href: '#projects', id: 'projects' },
-    { label: 'Blog', href: '#blog', id: 'blog' },
-    { label: 'Contact', href: '#contact', id: 'contact' },
+    { label: 'Home', href: '#hero' },
+    { label: 'Skills', href: '/skills' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Blog', href: '#blog' },
+    { label: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState('hero');
+    const [activeSection, setActiveSection] = useState('#hero');
     const [isScrolled, setIsScrolled] = useState(false);
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const { scrollY } = useScroll();
 
@@ -45,6 +46,12 @@ export default function Navbar() {
 
     // Track active section using Intersection Observer
     useEffect(() => {
+        // Only run intersection observer on home page
+        if (location.pathname !== '/') {
+            setActiveSection(location.pathname);
+            return;
+        }
+
         const observerOptions = {
             root: null,
             rootMargin: '-20% 0px -60% 0px',
@@ -54,32 +61,56 @@ export default function Navbar() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    setActiveSection(entry.target.id);
+                    setActiveSection(`#${entry.target.id}`);
                 }
             });
         }, observerOptions);
 
         // Observe all sections
         navItems.forEach((item) => {
-            const element = document.getElementById(item.id);
-            if (element) observer.observe(element);
+            if (item.href.startsWith('#')) {
+                const element = document.getElementById(item.href.replace('#', ''));
+                if (element) observer.observe(element);
+            }
         });
 
         return () => observer.disconnect();
-    }, []);
+    }, [location.pathname]);
 
     const scrollToSection = useCallback((href: string) => {
-        const id = href.replace('#', '');
-        const element = document.getElementById(id);
+        setIsOpen(false);
 
-        if (element) {
-            element.scrollIntoView({
-                behavior: prefersReducedMotion ? 'auto' : 'smooth'
-            });
+        // Handle Page Navigation (non-hash links)
+        if (!href.startsWith('#')) {
+            navigate(href);
+            return;
         }
 
-        setIsOpen(false);
-    }, [prefersReducedMotion]);
+        // Handle Scroll to Section
+        const targetId = href.replace('#', '');
+        
+        if (location.pathname !== '/') {
+            // If not on home page, navigate to home then scroll
+            navigate('/');
+            // Small delay to allow navigation to occur before scrolling
+            setTimeout(() => {
+                const element = document.getElementById(targetId);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                    });
+                }
+            }, 100);
+        } else {
+            // Already on home page, just scroll
+            const element = document.getElementById(targetId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                });
+            }
+        }
+    }, [prefersReducedMotion, navigate, location.pathname]);
 
     // Close mobile menu on resize
     useEffect(() => {
@@ -90,7 +121,7 @@ export default function Navbar() {
         };
 
         window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        return () => window.removeEventListener('change', handleResize);
     }, []);
 
     // Prevent body scroll when mobile menu is open
@@ -138,13 +169,13 @@ export default function Navbar() {
                         <div className="hidden md:flex items-center gap-1 lg:gap-2">
                             {navItems.map((item) => (
                                 <motion.a
-                                    key={item.id}
+                                    key={item.label}
                                     href={item.href}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         scrollToSection(item.href);
                                     }}
-                                    className={`relative px-3 lg:px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${activeSection === item.id
+                                    className={`relative px-3 lg:px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${activeSection === item.href
                                         ? 'text-[var(--text-primary)]'
                                         : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                                         }`}
@@ -154,7 +185,7 @@ export default function Navbar() {
                                     {item.label}
 
                                     {/* Active indicator */}
-                                    {activeSection === item.id && (
+                                    {activeSection === item.href && (
                                         <motion.div
                                             layoutId="activeSection"
                                             className="absolute inset-0 bg-nebula-purple/10 rounded-lg border border-nebula-purple/30"
@@ -235,7 +266,7 @@ export default function Navbar() {
                             <div className="flex flex-col pt-24 px-6">
                                 {navItems.map((item, index) => (
                                     <motion.a
-                                        key={item.id}
+                                        key={item.label}
                                         href={item.href}
                                         onClick={(e) => {
                                             e.preventDefault();
@@ -247,13 +278,13 @@ export default function Navbar() {
                                             delay: index * 0.05,
                                             duration: 0.3,
                                         }}
-                                        className={`py-4 text-lg font-medium border-b border-[var(--border-color)] transition-colors ${activeSection === item.id
+                                        className={`py-4 text-lg font-medium border-b border-[var(--border-color)] transition-colors ${activeSection === item.href
                                             ? 'text-nebula-light'
                                             : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                                             }`}
                                     >
                                         <span className="flex items-center gap-3">
-                                            {activeSection === item.id && (
+                                            {activeSection === item.href && (
                                                 <motion.span
                                                     layoutId="mobileActiveIndicator"
                                                     className="w-2 h-2 rounded-full bg-nebula-light"
