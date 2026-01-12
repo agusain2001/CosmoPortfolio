@@ -43,48 +43,32 @@ export default function CustomCursor() {
         const handleMouseMove = (e: MouseEvent) => {
             mouseX.set(e.clientX);
             mouseY.set(e.clientY);
-        };
 
-        const handleMouseEnter = (e: Event) => {
+            // Event delegation for hover states
+            // Check what element is under the cursor
             const target = e.target as HTMLElement;
+            
+            // Check if the target or its parents are interactive
+            // using closest() is much more efficient than attaching thousands of listeners
+            const link = target.closest('a');
+            const button = target.closest('button');
+            const card = target.closest('.cosmic-card, .cosmic-glass, [data-cursor="card"]');
 
-            if (target.matches('a, a *')) {
+            if (link) {
                 setCursorState({ isHovering: true, hoverType: 'link' });
-            } else if (target.matches('button, button *')) {
+            } else if (button) {
                 setCursorState({ isHovering: true, hoverType: 'button' });
-            } else if (target.matches('.cosmic-card, .cosmic-glass, [data-cursor="card"]')) {
+            } else if (card) {
                 setCursorState({ isHovering: true, hoverType: 'card' });
+            } else {
+                setCursorState({ isHovering: false, hoverType: 'default' });
             }
-        };
-
-        const handleMouseLeave = () => {
-            setCursorState({ isHovering: false, hoverType: 'default' });
         };
 
         window.addEventListener('mousemove', handleMouseMove);
 
-        // Add listeners to interactive elements
-        const addListeners = () => {
-            const elements = document.querySelectorAll('a, button, .cosmic-card, .cosmic-glass, [data-cursor]');
-            elements.forEach(el => {
-                el.addEventListener('mouseenter', handleMouseEnter);
-                el.addEventListener('mouseleave', handleMouseLeave);
-            });
-        };
-
-        // Initial setup
-        addListeners();
-
-        // Re-add listeners when DOM changes
-        const observer = new MutationObserver(() => {
-            addListeners();
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
-
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
-            observer.disconnect();
         };
     }, [mouseX, mouseY, prefersReducedMotion]);
 
