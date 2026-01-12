@@ -6,6 +6,7 @@ import {
 } from 'react-icons/hi';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
+import { STATIC_VALUES } from '../utils/values';
 
 interface Command {
     id: string;
@@ -38,8 +39,8 @@ export default function CommandPalette() {
         { id: 'download-resume', title: 'Download Resume', icon: HiDocumentText, action: () => window.open('https://drive.google.com/uc?export=download&id=1hg-mI58L85e6ibo5GOl6Gwg4sMdSqOG_', '_blank'), keywords: ['download', 'resume', 'cv', 'pdf'], category: 'actions' },
 
         // Links
-        { id: 'github', title: 'Open GitHub Profile', icon: FaGithub, action: () => window.open('https://github.com/agusain2001', '_blank'), keywords: ['github', 'code', 'repos'], category: 'links' },
-        { id: 'linkedin', title: 'Open LinkedIn Profile', icon: FaLinkedin, action: () => window.open('https://www.linkedin.com/in/ashish-gusain-aa279a280/', '_blank'), keywords: ['linkedin', 'connect', 'network'], category: 'links' },
+        { id: 'github', title: 'Open GitHub Profile', icon: FaGithub, action: () => window.open(STATIC_VALUES.url.socialMedia.github, '_blank'), keywords: ['github', 'code', 'repos'], category: 'links' },
+        { id: 'linkedin', title: 'Open LinkedIn Profile', icon: FaLinkedin, action: () => window.open(STATIC_VALUES.url.socialMedia.linkedin, '_blank'), keywords: ['linkedin', 'connect', 'network'], category: 'links' },
     ];
 
     const scrollTo = (selector: string) => {
@@ -136,7 +137,7 @@ export default function CommandPalette() {
                 >
                     <HiSearch className="w-4 h-4" />
                     <span>Press</span>
-                    <kbd className="px-1.5 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px] font-mono">⌘K</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px] font-mono">⌘ + K</kbd>
                 </button>
             </motion.div>
 
