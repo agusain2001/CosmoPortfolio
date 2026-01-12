@@ -4,23 +4,20 @@ import ScrollProgress from './components/ScrollProgress';
 import ScrollEffects from './components/ScrollEffects';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
-
-import Hero from './components/Hero';
-import About from './components/About';
-import ResumeTimeline from './components/ResumeTimeline';
-import SkillsRadar from './components/SkillsRadar';
-import TechStack from './components/TechStack';
-import Projects from './components/Projects';
-import Blog from './components/Blog';
-import Testimonials from './components/Testimonials';
-import GitHubStats from './components/GitHubStats';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
 import CommandPalette from './components/CommandPalette';
 import MusicPlayer from './components/MusicPlayer';
 import EasterEggs from './components/EasterEggs';
 import SEO from './components/SEO';
+import { Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+
+// Lazy load pages for performance
+const Home = lazy(() => import('./pages/Home'));
+const Skills = lazy(() => import('./pages/Skills'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 export default function App() {
     useTheme(); // Initialize theme context
@@ -57,21 +54,20 @@ export default function App() {
 
             {/* Easter eggs */}
             <EasterEggs />
-
-            {/* Main content */}
-            <main>
-                <Hero />
-                <About />
-                <ResumeTimeline />
-                <SkillsRadar />
-                <TechStack />
-                <Projects />
-                <Blog />
-                <Testimonials />
-                <GitHubStats />
-                {/* <GitHubActivityFeed /> */}
-                <Contact />
-            </main>
+    
+            <Suspense fallback={
+                <div className="flex items-center justify-center min-h-screen">
+                    <div className="w-10 h-10 border-4 border-nebula-purple border-t-transparent rounded-full animate-spin" />
+                </div>
+            }>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/skills" element={<Skills />} />
+                    <Route path="/projects" element={<Projects />} />
+                    <Route path="/contact" element={<Contact />} />
+                </Routes>
+            </Suspense>
 
             {/* Footer */}
             <Footer />
