@@ -3,13 +3,14 @@ import { FaLinkedin, FaGithub, FaStackOverflow } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { HiMail, HiChevronDown } from 'react-icons/hi';
 import { useTypewriter } from '../hooks/useTypewriter';
+import { STATIC_VALUES } from '../utils/values';
 
 const socialLinks = [
-    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ashish-gusain-aa279a280/', label: 'LinkedIn' },
-    { icon: FaGithub, href: 'https://github.com/agusain2001', label: 'GitHub' },
-    { icon: HiMail, href: 'mailto:2001.ashish.official@gmail.com', label: 'Email' },
+    { icon: FaLinkedin, href: STATIC_VALUES.url.socialMedia.linkedin, label: 'LinkedIn' },
+    { icon: FaGithub, href: STATIC_VALUES.url.socialMedia.github, label: 'GitHub' },
+    { icon: HiMail, href: STATIC_VALUES.url.gmail, label: 'Email' },
     { icon: FaStackOverflow, href: 'https://stackoverflow.com', label: 'Stack Overflow' },
-    { icon: FaXTwitter, href: 'https://x.com/2001agusain', label: 'X/Twitter' },
+    { icon: FaXTwitter, href: STATIC_VALUES.url.socialMedia.x, label: 'X/Twitter' },
 ];
 
 const rotatingTexts = [
@@ -102,13 +103,13 @@ export default function Hero() {
                     className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12"
                 >
                     <a
-                        href="#projects"
+                        href="/projects"
                         className="px-6 py-3 sm:px-8 sm:py-3.5 bg-gradient-to-r from-nebula-purple to-cosmic-blue rounded-full font-semibold text-white hover-lift nebula-glow transition-all duration-300 text-sm sm:text-base"
                     >
                         Explore Projects 🚀
                     </a>
                     <a
-                        href="/resume.pdf"
+                        href={STATIC_VALUES.url.resumeView}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-6 py-3 sm:px-8 sm:py-3.5 cosmic-card rounded-full font-semibold text-[var(--text-primary)] hover:opacity-80 transition-all duration-300 text-sm sm:text-base"

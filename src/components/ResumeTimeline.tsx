@@ -1,9 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { HiDownload, HiDocumentText } from 'react-icons/hi';
-
-const RESUME_URL = 'https://drive.google.com/file/d/1hg-mI58L85e6ibo5GOl6Gwg4sMdSqOG_/view?usp=sharing';
-const RESUME_DOWNLOAD_URL = 'https://drive.google.com/uc?export=download&id=1hg-mI58L85e6ibo5GOl6Gwg4sMdSqOG_';
+import { STATIC_VALUES } from '../utils/values';
 
 interface TimelineItem {
     year: string;
@@ -61,7 +59,7 @@ export default function ResumeTimeline() {
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
     return (
-        <section id="resume" className="py-16 sm:py-20 lg:py-24 relative">
+        <section id="resume" className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
             <div className="container mx-auto px-4">
                 {/* Section title */}
                 <motion.div
@@ -81,7 +79,7 @@ export default function ResumeTimeline() {
                     {/* Resume download buttons */}
                     <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
                         <motion.a
-                            href={RESUME_URL}
+                            href={STATIC_VALUES.url.resumeView}
                             target="_blank"
                             rel="noopener noreferrer"
                             whileHover={{ scale: 1.05 }}
@@ -92,7 +90,7 @@ export default function ResumeTimeline() {
                             View Resume
                         </motion.a>
                         <motion.a
-                            href={RESUME_DOWNLOAD_URL}
+                            href={STATIC_VALUES.url.resumeDownload}
                             target="_blank"
                             rel="noopener noreferrer"
                             whileHover={{ scale: 1.05 }}

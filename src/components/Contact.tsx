@@ -3,6 +3,7 @@ import { useState, FormEvent } from 'react';
 import { HiMail, HiLocationMarker, HiPaperAirplane } from 'react-icons/hi';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { STATIC_VALUES } from '../utils/values';
 
 interface FormData {
     name: string;
@@ -20,26 +21,26 @@ const contactInfo = [
     {
         icon: HiMail,
         label: 'Transmission',
-        value: '2001.ashish.official@gmail.com',
-        href: 'mailto:2001.ashish.official@gmail.com',
+        value: STATIC_VALUES.email,
+        href: STATIC_VALUES.url.gmail,
     },
     {
         icon: FaLinkedin,
         label: 'LinkedIn',
         value: 'ashish-gusain',
-        href: 'https://www.linkedin.com/in/ashish-gusain-aa279a280/',
+        href: STATIC_VALUES.url.socialMedia.linkedin,
     },
     {
         icon: FaGithub,
         label: 'GitHub',
         value: 'agusain2001',
-        href: 'https://github.com/agusain2001',
+        href: STATIC_VALUES.url.socialMedia.github,
     },
     {
         icon: FaXTwitter,
         label: 'X/Twitter',
         value: '@2001agusain',
-        href: 'https://x.com/2001agusain',
+        href: STATIC_VALUES.url.socialMedia.x,
     },
 ];
 
@@ -72,7 +73,7 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="py-16 sm:py-20 lg:py-24 relative">
+        <section id="contact" className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
             <div className="container mx-auto px-4">
                 {/* Section title */}
                 <motion.div

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 export default function ScrollEffects() {
     const { scrollY } = useScroll();
     const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null);
-    const [lastScrollY, setLastScrollY] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
 
     // Check if mobile
@@ -25,21 +24,34 @@ export default function ScrollEffects() {
     const rotate1 = useTransform(smoothScrollY, [0, 3000], [0, 360]);
     const rotate2 = useTransform(smoothScrollY, [0, 3000], [0, -180]);
 
-    // Detect scroll direction
+    // Detect scroll direction with throttle
     useEffect(() => {
-        const handleScroll = () => {
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        const updateScrollDir = () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY) {
-                setScrollDirection('down');
-            } else if (currentScrollY < lastScrollY) {
-                setScrollDirection('up');
+            if (Math.abs(currentScrollY - lastScrollY) > 10) { // Threshold to avoid jitter
+                if (currentScrollY > lastScrollY) {
+                    setScrollDirection('down');
+                } else if (currentScrollY < lastScrollY) {
+                    setScrollDirection('up');
+                }
+                lastScrollY = currentScrollY;
             }
-            setLastScrollY(currentScrollY);
+            ticking = false;
+        };
+
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScrollDir);
+                ticking = true;
+            }
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
+    }, []);
 
     // Hide on mobile
     if (isMobile) return null;

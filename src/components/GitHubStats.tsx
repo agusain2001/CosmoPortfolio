@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
-import { FaGithub, FaStar, FaCodeBranch, FaFire } from 'react-icons/fa';
+import { FaGithub, FaStar, FaFire } from 'react-icons/fa';
 import { HiOutlineCode } from 'react-icons/hi';
 
 interface GitHubStats {
@@ -59,22 +59,22 @@ export default function GitHubStats() {
         followers: 10,
         totalStars: 25,
     });
-    const [isDark, setIsDark] = useState(true);
+    // const [isDark, setIsDark] = useState(true);
 
     // Watch for theme changes
-    useEffect(() => {
-        const checkTheme = () => {
-            setIsDark(!document.documentElement.classList.contains('light'));
-        };
+    // useEffect(() => {
+    //     const checkTheme = () => {
+    //         setIsDark(!document.documentElement.classList.contains('light'));
+    //     };
 
-        checkTheme();
+    //     checkTheme();
 
-        // Observe class changes on html element
-        const observer = new MutationObserver(checkTheme);
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    //     // Observe class changes on html element
+    //     const observer = new MutationObserver(checkTheme);
+    //     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-        return () => observer.disconnect();
-    }, []);
+    //     return () => observer.disconnect();
+    // }, []);
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -103,19 +103,19 @@ export default function GitHubStats() {
     ];
 
     // Theme-aware GitHub stats URLs
-    const getStatsUrl = () => {
-        if (isDark) {
-            return `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=transparent&hide_border=true&title_color=8B5CF6&text_color=E0E7FF&icon_color=60A5FA&bg_color=00000000`;
-        }
-        return `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=default&hide_border=true&title_color=7C3AED&text_color=1E293B&icon_color=2563EB&bg_color=FFFFFF`;
-    };
+    // const getStatsUrl = () => {
+    //     if (isDark) {
+    //         return `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=transparent&hide_border=true&title_color=8B5CF6&text_color=E0E7FF&icon_color=60A5FA&bg_color=00000000`;
+    //     }
+    //     return `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=default&hide_border=true&title_color=7C3AED&text_color=1E293B&icon_color=2563EB&bg_color=FFFFFF`;
+    // };
 
-    const getStreakUrl = () => {
-        if (isDark) {
-            return `https://github-readme-streak-stats.herokuapp.com?user=${GITHUB_USERNAME}&theme=transparent&hide_border=true&ring=8B5CF6&fire=F59E0B&currStreakLabel=C084FC&sideLabels=E0E7FF&currStreakNum=FFFFFF&sideNums=FFFFFF&dates=60A5FA&background=00000000`;
-        }
-        return `https://github-readme-streak-stats.herokuapp.com?user=${GITHUB_USERNAME}&theme=default&hide_border=true&ring=7C3AED&fire=D97706&currStreakLabel=7C3AED&sideLabels=1E293B&currStreakNum=1E293B&sideNums=1E293B&dates=64748B&background=FFFFFF`;
-    };
+    // const getStreakUrl = () => {
+    //     if (isDark) {
+    //         return `https://github-readme-streak-stats.herokuapp.com?user=${GITHUB_USERNAME}&theme=transparent&hide_border=true&ring=8B5CF6&fire=F59E0B&currStreakLabel=C084FC&sideLabels=E0E7FF&currStreakNum=FFFFFF&sideNums=FFFFFF&dates=60A5FA&background=00000000`;
+    //     }
+    //     return `https://github-readme-streak-stats.herokuapp.com?user=${GITHUB_USERNAME}&theme=default&hide_border=true&ring=7C3AED&fire=D97706&currStreakLabel=7C3AED&sideLabels=1E293B&currStreakNum=1E293B&sideNums=1E293B&dates=64748B&background=FFFFFF`;
+    // };
 
     return (
         <section id="github" className="py-16 sm:py-20 lg:py-24 relative">
@@ -155,7 +155,7 @@ export default function GitHubStats() {
                 </motion.div>
 
                 {/* GitHub contribution graph */}
-                <motion.div
+                {/* <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -165,10 +165,10 @@ export default function GitHubStats() {
                     <h3 className="text-base sm:text-lg font-semibold text-[var(--text-primary)] mb-4 sm:mb-6 flex items-center gap-2">
                         <FaCodeBranch className="text-nebula-light" />
                         Contribution Activity
-                    </h3>
+                    </h3> */}
 
                     {/* GitHub stats images - Theme aware */}
-                    <div className="space-y-4 sm:space-y-6">
+                    {/* <div className="space-y-4 sm:space-y-6">
                         <div className="overflow-x-auto">
                             <img
                                 key={`stats-${isDark}`}
@@ -189,7 +189,7 @@ export default function GitHubStats() {
                             />
                         </div>
                     </div>
-                </motion.div>
+                </motion.div> */}
 
                 {/* View profile link */}
                 <motion.div
