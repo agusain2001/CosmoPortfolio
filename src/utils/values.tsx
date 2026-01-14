@@ -11,8 +11,8 @@ export const STATIC_VALUES = {
         },
         gmail : "mailto:2001.ashish.official@gmail.com",
         resumeView : "https://drive.google.com/file/d/1hg-mI58L85e6ibo5GOl6Gwg4sMdSqOG_/view",
-        resumeDownload : "https://drive.google.com/uc?export=download&id=1hg-mI58L85e6ibo5GOl6Gwg4sMdSqOG_"
-        
+        resumeDownload : "https://drive.google.com/uc?export=download&id=1hg-mI58L85e6ibo5GOl6Gwg4sMdSqOG_",
+        site : "https://ashish-gusain-green-nu.vercel.app"
     },
 
     email : "2001.ashish.official@gmail.com"
