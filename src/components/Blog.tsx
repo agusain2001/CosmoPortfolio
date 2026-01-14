@@ -11,33 +11,108 @@ interface BlogPost {
     description: string;
 }
 
-// Fallback data in case API fails
+// Medium username for fetching posts
+const MEDIUM_USERNAME = 'agusain2001';
+
+// Fallback data in case API fails or no posts are available
 const fallbackPosts: BlogPost[] = [
     {
         title: 'Building Production-Grade Multi-Agent Systems with LangGraph',
-        link: 'https://medium.com/@agusain2001',
-        thumbnail: 'https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg',
+        link: `https://medium.com/@${MEDIUM_USERNAME}`,
+        thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop&q=60',
         pubDate: '2024-12-15',
         categories: ['AI', 'LangGraph', 'Python'],
         description: 'A deep dive into architecting scalable multi-agent AI systems for production environments.'
     },
     {
         title: 'RAG Systems: Achieving 95% Context Retrieval Accuracy',
-        link: 'https://medium.com/@agusain2001',
-        thumbnail: 'https://miro.medium.com/max/1200/1*sHhtYhaCe2Uc3IU0IgKwIQ.png',
+        link: `https://medium.com/@${MEDIUM_USERNAME}`,
+        thumbnail: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&auto=format&fit=crop&q=60',
         pubDate: '2024-11-20',
         categories: ['RAG', 'Vector DB', 'LLM'],
         description: 'Optimizing Retrieval-Augmented Generation pipelines with ChromaDB and semantic chunking.'
     },
     {
         title: 'FastAPI Best Practices: Building APIs That Scale',
-        link: 'https://medium.com/@agusain2001',
-        thumbnail: 'https://miro.medium.com/max/1200/1*du7p50wS_fIsaC_lR18qsg.png',
+        link: `https://medium.com/@${MEDIUM_USERNAME}`,
+        thumbnail: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=60',
         pubDate: '2024-10-10',
         categories: ['FastAPI', 'Backend', 'Python'],
         description: 'Lessons learned from handling 1000+ daily requests with sub-200ms latency.'
     }
 ];
+
+// Extract thumbnail from content HTML
+const extractThumbnail = (content: string): string | null => {
+    const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
+    return imgMatch ? imgMatch[1] : null;
+};
+
+// Extract categories from content
+const extractCategories = (content: string): string[] => {
+    const categoryMatch = content.match(/<a[^>]*class="[^"]*tag[^"]*"[^>]*>([^<]+)<\/a>/gi);
+    if (categoryMatch) {
+        return categoryMatch.map(tag => tag.replace(/<[^>]*>/g, '')).slice(0, 3);
+    }
+    return [];
+};
+
+// Clean HTML and extract text
+const cleanHtml = (html: string): string => {
+    return html
+        .replace(/<[^>]*>/g, '')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .trim();
+};
+
+// Parse RSS XML to extract blog posts
+const parseRssXml = (xmlString: string): BlogPost[] => {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+
+    const items = xmlDoc.querySelectorAll('item');
+    const posts: BlogPost[] = [];
+
+    items.forEach((item) => {
+        const title = item.querySelector('title')?.textContent || '';
+        const link = item.querySelector('link')?.textContent || '';
+        const pubDate = item.querySelector('pubDate')?.textContent || '';
+        const contentEncoded = item.querySelector('content\\:encoded')?.textContent ||
+            item.getElementsByTagName('content:encoded')[0]?.textContent || '';
+        const description = item.querySelector('description')?.textContent || '';
+
+        // Extract thumbnail from content
+        const thumbnail = extractThumbnail(contentEncoded) ||
+            extractThumbnail(description) ||
+            'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop&q=60';
+
+        // Extract categories
+        const categoryElements = item.querySelectorAll('category');
+        const categories: string[] = [];
+        categoryElements.forEach(cat => {
+            if (cat.textContent) categories.push(cat.textContent);
+        });
+
+        // Clean description
+        const cleanDescription = cleanHtml(description).substring(0, 150) + '...';
+
+        posts.push({
+            title: cleanHtml(title),
+            link,
+            thumbnail,
+            pubDate,
+            categories: categories.length > 0 ? categories.slice(0, 3) : extractCategories(contentEncoded),
+            description: cleanDescription
+        });
+    });
+
+    return posts;
+};
 
 export default function Blog() {
     const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -46,36 +121,107 @@ export default function Blog() {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            try {
-                const response = await fetch(
-                    'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@agusain2001'
-                );
+            const mediumRssUrl = `https://medium.com/feed/@${MEDIUM_USERNAME}`;
 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch blog posts');
+            // Strategy 1: Try rss2json API
+            const tryRss2Json = async (): Promise<BlogPost[] | null> => {
+                try {
+                    const response = await fetch(
+                        `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(mediumRssUrl)}`
+                    );
+
+                    if (!response.ok) return null;
+
+                    const data = await response.json();
+
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        return data.items.slice(0, 3).map((item: {
+                            title: string;
+                            link: string;
+                            thumbnail: string;
+                            pubDate: string;
+                            categories: string[];
+                            description: string;
+                            content: string;
+                        }) => ({
+                            title: item.title,
+                            link: item.link,
+                            thumbnail: item.thumbnail ||
+                                extractThumbnail(item.content || '') ||
+                                'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop&q=60',
+                            pubDate: item.pubDate,
+                            categories: item.categories?.slice(0, 3) || [],
+                            description: cleanHtml(item.description || '').substring(0, 150) + '...'
+                        }));
+                    }
+                    return null;
+                } catch {
+                    console.log('rss2json failed, trying alternative...');
+                    return null;
+                }
+            };
+
+            // Strategy 2: Try allorigins CORS proxy with XML parsing
+            const tryAllOrigins = async (): Promise<BlogPost[] | null> => {
+                try {
+                    const response = await fetch(
+                        `https://api.allorigins.win/raw?url=${encodeURIComponent(mediumRssUrl)}`
+                    );
+
+                    if (!response.ok) return null;
+
+                    const xmlText = await response.text();
+                    const parsedPosts = parseRssXml(xmlText);
+
+                    if (parsedPosts.length > 0) {
+                        return parsedPosts.slice(0, 3);
+                    }
+                    return null;
+                } catch {
+                    console.log('allorigins failed, trying alternative...');
+                    return null;
+                }
+            };
+
+            // Strategy 3: Try corsproxy.io
+            const tryCorsProxy = async (): Promise<BlogPost[] | null> => {
+                try {
+                    const response = await fetch(
+                        `https://corsproxy.io/?${encodeURIComponent(mediumRssUrl)}`
+                    );
+
+                    if (!response.ok) return null;
+
+                    const xmlText = await response.text();
+                    const parsedPosts = parseRssXml(xmlText);
+
+                    if (parsedPosts.length > 0) {
+                        return parsedPosts.slice(0, 3);
+                    }
+                    return null;
+                } catch {
+                    console.log('corsproxy.io failed');
+                    return null;
+                }
+            };
+
+            try {
+                // Try each strategy in order
+                let fetchedPosts = await tryRss2Json();
+
+                if (!fetchedPosts) {
+                    fetchedPosts = await tryAllOrigins();
                 }
 
-                const data = await response.json();
+                if (!fetchedPosts) {
+                    fetchedPosts = await tryCorsProxy();
+                }
 
-                if (data.status === 'ok' && data.items && data.items.length > 0) {
-                    const formattedPosts: BlogPost[] = data.items.slice(0, 3).map((item: {
-                        title: string;
-                        link: string;
-                        thumbnail: string;
-                        pubDate: string;
-                        categories: string[];
-                        description: string;
-                    }) => ({
-                        title: item.title,
-                        link: item.link,
-                        thumbnail: item.thumbnail || 'https://miro.medium.com/max/1200/1*jfdwtvU6V6g99q3G7gq7dQ.png',
-                        pubDate: item.pubDate,
-                        categories: item.categories?.slice(0, 3) || [],
-                        description: item.description?.replace(/<[^>]*>/g, '').substring(0, 120) + '...' || ''
-                    }));
-                    setPosts(formattedPosts);
+                if (fetchedPosts && fetchedPosts.length > 0) {
+                    setPosts(fetchedPosts);
                 } else {
-                    // Use fallback data if no items
+                    // No posts found from any source, use fallback
+                    console.log('No Medium posts found, using fallback data');
                     setPosts(fallbackPosts);
                 }
             } catch (err) {
@@ -164,7 +310,7 @@ export default function Blog() {
                                         alt={post.title}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         onError={(e) => {
-                                            (e.target as HTMLImageElement).src = 'https://miro.medium.com/max/1200/1*jfdwtvU6V6g99q3G7gq7dQ.png';
+                                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop&q=60';
                                         }}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -226,7 +372,7 @@ export default function Blog() {
                     className="text-center mt-10"
                 >
                     <a
-                        href="https://medium.com/@agusain2001"
+                        href={`https://medium.com/@${MEDIUM_USERNAME}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-6 py-3 cosmic-card rounded-full text-[var(--text-primary)] font-medium hover:bg-[var(--bg-secondary)] transition-colors"
