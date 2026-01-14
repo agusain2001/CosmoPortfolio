@@ -18,6 +18,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Skills = lazy(() => import('./pages/Skills'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Error = lazy(() => import('./pages/Error'));
 
 export default function App() {
     useTheme(); // Initialize theme context
@@ -66,6 +67,7 @@ export default function App() {
                     <Route path="/skills" element={<Skills />} />
                     <Route path="/projects" element={<Projects />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="*" element={<Error />} />
                 </Routes>
             </Suspense>
 
